@@ -35,3 +35,14 @@ ls -l
 cat websrv.csr
 scp websrv.crt jack@webserver_IP:/home/jack
 ## (copies cert to webserver)
+
+# HTTPS ON APACHE
+cp websrv.crt /etc/pki/tls/certs
+cp websrv.key /etc/pki/tls/private
+yum -y install mod_ssl
+## installs mod-ssl
+Update /etc/httpd/conf.d/ssl.conf
+## SSLCertificateFile matches websrv.cert
+## SSLCertificateKeyFile matches websrv.key
+update/reload firewall for 443/tcp
+restart httpd
